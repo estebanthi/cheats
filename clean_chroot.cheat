@@ -1,0 +1,20 @@
+% Setting up and building in a clean chroot
+
+# Creating the chroot directory
+mkdir <directory>
+
+# Define the CHROOT variable
+CHROOT=<directory>
+
+# Create the chroot
+mkarchroot $CHROOT/root base-devel
+
+# Make sure the base chroot is up to date
+arch-nspawn $CHROOT/root pacman -Syu
+
+# Build a package from the directory containing the PKGBUILD
+makechrootpkg -c -r $CHROOT
+
+# Install the package from the .pkg.tar.zst file
+sudo pacman -U <file>
+
